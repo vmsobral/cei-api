@@ -1,0 +1,16 @@
+apply plugin: 'application'
+
+mainClassName = "br.com.guiabolso.quickstart.Boot"
+
+applicationDefaultJvmArgs = [
+        "-server",
+        "-XX:+UseNUMA",
+        "-XX:+UseParallelGC",
+        "-Duser.timezone=America/Sao_Paulo"
+]
+
+dependencies {
+    compile project(":usecases")
+    compile project(":persistence")
+    compile project(":http-api")
+}
