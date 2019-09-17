@@ -1,4 +1,4 @@
-# quickstart
+# cei-api
 
 Para iniciar um novo projeto à partir desse quick-start é necessário:
 - Cloná-lo na máquina.

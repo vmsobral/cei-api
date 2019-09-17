@@ -1,3 +1,9 @@
+ext.oktHttpVersion = "3.14.1"
+ext.retrofitVersion = "2.5.0"
+
 dependencies {
-    compile group: 'br.com.guiabolso', name: 'tracing', version: '2.1.2'
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: "$oktHttpVersion"
+    compile("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    compile("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    compile("commons-io:commons-io:2.6")
 }

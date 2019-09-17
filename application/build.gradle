@@ -1,6 +1,6 @@
 apply plugin: 'application'
 
-mainClassName = "br.com.guiabolso.quickstart.Boot"
+mainClassName = "br.com.ceiapi.Boot"
 
 applicationDefaultJvmArgs = [
         "-server",
@@ -11,6 +11,5 @@ applicationDefaultJvmArgs = [
 
 dependencies {
     compile project(":usecases")
-    compile project(":persistence")
     compile project(":http-api")
 }
