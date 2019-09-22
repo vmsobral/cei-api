@@ -1,17 +1,25 @@
 package br.com.ceiapi.retrieve.connector
 
+import org.jsoup.nodes.Document
 import retrofit2.Call
-import retrofit2.http.HeaderMap
+import retrofit2.http.FieldMap
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.QueryMap
 
 interface IRetrofitBankingConnector {
 
     /** LOGIN **/
 
-    @POST("servico/ServicoLogin/login")
-    fun loginService(
-        @QueryMap queryMap: Map<String, String>,
-        @HeaderMap header: Map<String, String>
-    ): Call<LoginServiceResponse>
+    @GET("/")
+    fun ceiHomepage(): Call<Document>
+
+    @FormUrlEncoded
+    @POST("CEI_Responsivo/login.aspx")
+    fun login(@FieldMap input: Map<String, String>, @Header("Cookie") cookies: String): Call<Document>
+
+    @GET("CEI_Responsivo/home.aspx")
+    fun home(@Header("Cookie") cookies: String): Call<Document>
+
 }

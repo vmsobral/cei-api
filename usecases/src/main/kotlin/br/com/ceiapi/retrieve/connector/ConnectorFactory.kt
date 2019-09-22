@@ -1,6 +1,7 @@
 package br.com.ceiapi.retrieve.connector
 
 import br.com.ceiapi.config.propertiesconfig.ConfigService
+import com.github.slashrootv200.retrofithtmlconverter.HtmlConverterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.springframework.stereotype.Component
@@ -30,9 +31,11 @@ class ConnectorFactory(val configService: ConfigService) {
 
 //        if (proxyData != null) client.proxy(convertDefaultToProxy(proxyData))
 
+        val baseUrl = configService.getRequiredString("cei.url")
         return Retrofit.Builder()
-                .baseUrl(configService.getRequiredString("bb.url"))
+                .baseUrl(baseUrl)
                 .client(client.build())
+                .addConverterFactory(HtmlConverterFactory.create(baseUrl))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(IRetrofitBankingConnector::class.java)

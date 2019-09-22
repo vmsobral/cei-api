@@ -1,16 +1,12 @@
 package br.com.ceiapi.config.propertiesconfig
 
-import br.com.ceiapi.config.cryptography.CryptographyService
-import br.com.ceiapi.config.cryptography.EncryptedData
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.PropertySource
 import org.springframework.stereotype.Service
 
 @Service
 @PropertySource("classpath:/application.properties")
-class ConfigService(
-        private val baseConfigService: BaseConfigService,
-        private val cryptographyService: CryptographyService) {
+class ConfigService(private val baseConfigService: BaseConfigService) {
 
     private val logger = LoggerFactory.getLogger(ConfigService::class.java)!!
 
@@ -31,18 +27,7 @@ class ConfigService(
     }
 
     private fun getProperty(property: String): String? {
-        return decryptIfNeeded(property, baseConfigService.getString(property))
-    }
-
-    private fun decryptIfNeeded(property: String, value: String?): String? {
-        if (value != null) {
-            val encrypted = this.baseConfigService.getString("$property.encrypted")?.toBoolean() ?: false
-            if (encrypted) {
-                logger.info("Decrypting config value of property '$property'.")
-                return this.cryptographyService.decrypt(EncryptedData(value)).get()
-            }
-        }
-        return value
+        return baseConfigService.getString(property)
     }
 
 }
